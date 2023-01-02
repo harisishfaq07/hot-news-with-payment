@@ -1,0 +1,41 @@
+<h2>Sign up</h2>
+<script language="Javascript">
+Stripe.setPublishableKey(<%= Rails.configuration.stripe[:publishable_key] %>);
+</script>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'cc_form', data: { turbo: false} } ) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div><br>
+<%= fields_for (:payments) do |p| %>
+Card num: <%= p.text_field :card_number , required: true , data: { stripe: 'number'}%><br><br>
+Card CVV: <%= p.text_field :card_cvv , required: true , data: { stripe: 'cvc'}%><br><br>
+Card Expirey: <%= p.select :card_expires_month , Payment.month_options , required: true , "data-stripe" => "exp-month"%> | <%= p.select :card_expires_year , Payment.year_options , required: true  , "data-stripe" => "exp-year" %>
+<%= p.hidden_field :amt , :value => 50 %> 
+<%= p.hidden_field :pkg , :value => "standard" %> 
+<% end %><br>
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+
+
+
