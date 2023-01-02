@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "free_signup" , to: "registrations#free_signup"
   post "create_free_signup" , to: "registrations#create_free_signup"
   end
-  # Defines the root path route ("/")
+   resources :news
   root "home#homepage"
   get "landpage" , to: "home#landpage"
 end

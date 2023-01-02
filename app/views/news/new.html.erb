@@ -1,0 +1,7 @@
+Create News
+
+<%= form_for @new do |n| %>
+    Title: <%= n.text_field :title %> <br>
+    Description: <%= n.text_field :description %><br>
+    <%= n.submit "Create" %>
+<% end %>

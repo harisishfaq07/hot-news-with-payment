@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          has_many :payments , dependent: :destroy
+         has_many :news , dependent: :destroy
         #  has_many :packages
          accepts_nested_attributes_for :payments 
 end
