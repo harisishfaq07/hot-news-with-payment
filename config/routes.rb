@@ -9,4 +9,6 @@ Rails.application.routes.draw do
    resources :news
   root "home#homepage"
   get "landpage" , to: "home#landpage"
+  post "renew_pay" , to: "renew#renew_pay"
+  get "renew_form" , to: "renew#renew_form"
 end

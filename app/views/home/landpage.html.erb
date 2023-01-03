@@ -1,1 +1,9 @@
-<%= link_to "Create NEWs" , new_news_path %>
+ 
+
+<% if current_user.payments.count == 0 && current_user.news.count >= 10 %>
+<p class = "alert"> </p>
+<script> alert("Your News create count has been completed, please buy the premium package to create more") </script>
+<%= link_to "Do Payment" , renew_form_path %>
+<% else %>
+<%= link_to "Create NEWs" , new_news_path %> 
+<% end %>

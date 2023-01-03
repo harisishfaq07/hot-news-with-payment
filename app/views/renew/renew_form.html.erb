@@ -1,0 +1,15 @@
+<script language="Javascript">
+Stripe.setPublishableKey(<%= Rails.configuration.stripe[:publishable_key] %>);
+</script>
+<br><br><br><br>
+<%= form_for @payment , url: renew_pay_path ,  html: {class: 'cc_form'}  do |p|%>
+
+Email: <%= p.email_field :email, :value => current_user.email , :readonly => true %><br><br>
+Card num: <%= p.text_field :card_number , required: true , data: { stripe: 'number'}%><br><br>
+Card CVV: <%= p.text_field :card_cvv , required: true , data: { stripe: 'cvc'}%><br><br>
+Card Expirey: <%= p.select :card_expires_month , Payment.month_options , required: true , "data-stripe" => "exp-month"%> | <%= p.select :card_expires_year , Payment.year_options , required: true  , "data-stripe" => "exp-year" %>
+    <%= p.hidden_field :amt , :value => 50 %> 
+    <%= p.hidden_field :pkg , :value => "standard" %> 
+<br><br>
+    <%= p.submit "Create Payment" %>
+<% end %>
